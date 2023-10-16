@@ -1,0 +1,18 @@
+@startuml FileReader
+
+CDCMetadataScanner -> cdcMetadataReader:NewCDCMetadataReader()
+cdcMetadataReader -> FileReader:NewFileReader()
+NewCDCFileReader->ReadSeekCloser
+
+cdcMetadataReader -> FileReader: getFileView(fileName, &FileOffset{0,0})
+FileReader -> FileReader: initFileReader(fileName, &FileOffset{0,0})
+FileReader -> CDCFileReader: NewCDCFileReader(ctx, os.File)
+CDCFileReader -> bufio.Reader:bufio.NewReader(reader.dataSource)
+bufio.Reader --> CDCFileReader: reader.bufferedReader
+CDCFileReader -> gzip.Reader:gzip.NewReader(reader.bufferedReader)
+gzip.Reader --> CDCFileReader:reader.gzipReade
+CDCFileReader -> bufio.Scanner:bufio.NewScanner(reader.gzipReader)
+bufio.Scanner --> CDCFileReader: reader.scanner
+FileReader --> FileReader
+
+FileReader -> CDCFileReader: Seek(checkpoint.Offset.BlockOffset, io.SeekStart)

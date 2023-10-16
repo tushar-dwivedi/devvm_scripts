@@ -1,0 +1,3 @@
+/var/log/cdc_data_publisher/current,found no matching filter for cdcEvent,GREP,txt
+/var/log/cdc_data_publisher/current,grep 'recordsRead:[' | grep -v 'recordsRead:[0]',CMD,txt
+/var/log/cdc_data_publisher/current,Here's your bug,GREP,txt

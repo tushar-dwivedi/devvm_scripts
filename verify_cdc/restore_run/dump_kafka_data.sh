@@ -1,0 +1,2 @@
+sudo /opt/rubrik/src/go/bin/kafka_cdc_converter --tablename files_perf_test_only --topicname files_perf_test_only --workdir /mnt/wwn-f51d1645-d303-4ebe-b441-451b1302771d/internal/cassandra_snapshots/kafka_cdc_data
+#sudo /opt/rubrik/src/go/bin/kafka_cdc_converter --tablename mix_load_1_test_only --topicname mix_load_1_test_only --workdir /mnt/wwn-f51d1645-d303-4ebe-b441-451b1302771d/internal/cassandra_snapshots/kafka_cdc_data

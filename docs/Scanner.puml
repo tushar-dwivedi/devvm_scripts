@@ -1,0 +1,78 @@
+@startuml Scanner
+
+namespace scanner {
+    class CDCMetadataScanner << (S,Aquamarine) >> {
+        - ctx context.Context
+        - cdcReader Reader
+        - nodeID string
+        - cdcCheckpoint *Checkpoint
+        - scanInterval time.Duration
+        - metricsRegistry metrics.Registry
+        - persister persistence.CheckpointPersistence
+
+        + MetadataRepo store.Repository
+
+        + Init() error
+        + Run() error
+        + Shutdown()
+
+    }
+    class Checkpoint << (S,Aquamarine) >> {
+        + FileName string
+        + Offset *FileOffset
+
+        + ToString() string
+
+    }
+    class FileOffset << (S,Aquamarine) >> {
+        + BlockOffset int64
+        + LineOffset int64
+
+    }
+    class FileReader << (S,Aquamarine) >> {
+        - ctx context.Context
+        - file *os.File
+        - fileReader *datarecord.CDCFileReader
+        - tables <font color=blue>map</font>[string]<font color=blue>interface</font>{}
+        - skipLines int64
+
+        + RecordsLimit int
+        + RecordsRead int
+
+        - getFileView(fileName string, offset *FileOffset) (models.FileView, Checkpoint, int64, error)
+        - readRecord(checkpoint *Checkpoint, fileView *models.FileView) (bool, error)
+        - insertValidCheckpoint(fileView *models.FileView, cdcCkpt *datarecord.CDCCheckpoint)
+        - initCheckpointAndView(fileName string, offset *FileOffset) (*Checkpoint, *models.FileView)
+        - initFileReader(fileName string) error
+        - closeFileReader()
+
+        + InsertCkptInFileView(fileView *models.FileView, cdcCkpt *datarecord.CDCCheckpoint)
+
+    }
+    interface Reader  {
+        + ReadAll() ([]store.View, *Checkpoint, int64, error)
+        + ReadNext( Checkpoint) ([]store.View, *Checkpoint, int64, error)
+
+    }
+    interface Scanner  {
+        + Init() error
+        + Run() error
+        + Shutdown()
+
+    }
+    class cdcMetadataReader << (S,Aquamarine) >> {
+        - ctx context.Context
+        - directory string
+        - tables <font color=blue>map</font>[string]<font color=blue>interface</font>{}
+        - fr *FileReader
+
+        + ReadAll() ([]store.View, *Checkpoint, int64, error)
+        + ReadNext(checkpoint Checkpoint) ([]store.View, *Checkpoint, int64, error)
+
+    }
+}
+
+"scanner.Scanner" <|-- "scanner.CDCMetadataScanner"
+"scanner.Reader" <|-- "scanner.cdcMetadataReader"
+
+@enduml
