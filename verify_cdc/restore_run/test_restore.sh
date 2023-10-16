@@ -79,7 +79,7 @@ fi
 #bash ./devvm_scripts/verify_cdc/restore_debug/start_restore_debug.sh "files_perf_test_only__static"
 
 bash ./devvm_scripts/verify_cdc/restore_debug/start_restore_debug.sh "files_perf_test_only" sd sd_restore 0
-bash ./devvm_scripts/verify_cdc/restore_debug/start_restore_debug.sh "files_perf_test_only" sd_restore sd_restore_kafka 1
+# bash ./devvm_scripts/verify_cdc/restore_debug/start_restore_debug.sh "files_perf_test_only" sd sd_restore_kafka 1
 # echo -e '\a'
 
 set +x

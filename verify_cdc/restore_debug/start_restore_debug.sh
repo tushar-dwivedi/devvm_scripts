@@ -108,6 +108,7 @@ mkdir -p $logs_result_dir
 fetch_cdc_files_from_all_nodes_and_merge $table_name $cdc_result_dir_deduped "/tmp/cdc_result_deduped" 1 combined_deduped_cdc_json_file
 echo "0. combined_deduped_cdc_json_file: $combined_deduped_cdc_json_file"
 
+set -x
 extra_entries_vs_deduped_cdc_file="$combined_result_dir/extra_entries_vs_deduped_cdc.json"
 python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $extra_entries_file $combined_deduped_cdc_json_file $extra_entries_vs_deduped_cdc_file
 echo "1. extra_entries_vs_deduped_cdc_file: $extra_entries_vs_deduped_cdc_file"
@@ -120,6 +121,7 @@ mismatching_entries_vs_deduped_cdc_file="$combined_result_dir/mismatching_entrie
 python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $mismatching_entries_file $combined_deduped_cdc_json_file $mismatching_entries_vs_deduped_cdc_file
 echo "3. mismatching_entries_vs_deduped_cdc_file: $mismatching_entries_vs_deduped_cdc_file"
 
+set +x
 exit 1
 
 ########################################################################

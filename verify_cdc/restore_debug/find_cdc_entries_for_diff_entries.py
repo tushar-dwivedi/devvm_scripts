@@ -1,5 +1,5 @@
-import sys
 import json
+import sys
 
 # Check if the correct number of command-line arguments are provided
 if len(sys.argv) != 4:
@@ -79,7 +79,10 @@ with open(database_diff_file, 'r') as file:
 
 
 for entry in data1:
-    process_cdc_entry(data_dict, entry, output_data)
+    try:
+        process_cdc_entry(data_dict, entry, output_data)
+    except Exception as e:
+        print(e)
 
 # Write the output data to the specified output file
 with open(output_file, 'w') as file:
