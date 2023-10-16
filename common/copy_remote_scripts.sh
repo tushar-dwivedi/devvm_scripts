@@ -6,10 +6,10 @@ copy_all_remote_scripts() {
     ssh-keyscan $ip >>~/.ssh/known_hosts
     ssh -i $pem_file ubuntu@$ip "mkdir -p $remote_node_script_dir/"
     # for script in "jq" "display_stats.sh" "fetch_cdc_files.sh" "find_data_events_without_checkpoints.sh" "find_data_events_without_checkpoints.py"; do
-    scp -i $pem_file ./skip_commit/verify_cdc/restore_run/remote_scripts/* ubuntu@$ip:$remote_node_script_dir/
-    scp -i $pem_file ./skip_commit/verify_cdc/restore_debug/remote_scripts/* ubuntu@$ip:$remote_node_script_dir/
-    scp -i $pem_file ./skip_commit/common/remote_scripts/* ubuntu@$ip:$remote_node_script_dir/
-    # scp -i $pem_file ./skip_commit/common/remote_scripts/jq.sh ubuntu@$ip:$remote_node_script_dir/jq
+    scp -i $pem_file ./devvm_scripts/verify_cdc/restore_run/remote_scripts/* ubuntu@$ip:$remote_node_script_dir/
+    scp -i $pem_file ./devvm_scripts/verify_cdc/restore_debug/remote_scripts/* ubuntu@$ip:$remote_node_script_dir/
+    scp -i $pem_file ./devvm_scripts/common/remote_scripts/* ubuntu@$ip:$remote_node_script_dir/
+    # scp -i $pem_file ./devvm_scripts/common/remote_scripts/jq.sh ubuntu@$ip:$remote_node_script_dir/jq
     # done
 
     ssh -i $pem_file ubuntu@$ip "rm -f /home/ubuntu/.jq"
@@ -18,5 +18,5 @@ copy_all_remote_scripts() {
   done
 
   rm -f /home/ubuntu/.jq
-  cp ./skip_commit/common/remote_scripts/jq.sh /home/ubuntu/.jq
+  cp ./devvm_scripts/common/remote_scripts/jq.sh /home/ubuntu/.jq
 }

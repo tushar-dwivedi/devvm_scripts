@@ -1,7 +1,7 @@
 #!/bin/bash
 
-. ./skip_commit/common/bodega_order_details.sh
-. ./skip_commit/common/copy_remote_scripts.sh
+. ./devvm_scripts/common/bodega_order_details.sh
+. ./devvm_scripts/common/copy_remote_scripts.sh
 echo "bodega_ips: ${bodega_ips}"
 
 copy_all_remote_scripts

@@ -2,7 +2,7 @@
 
 set -x
 
-. ./skip_commit/common/bodega_order_details.sh
+. ./devvm_scripts/common/bodega_order_details.sh
 
 ip=${bodega_ips_arr[0]}
 
@@ -10,7 +10,7 @@ echo "running commands on : $ip"
 
 ssh-keyscan $ip >>~/.ssh/known_hosts
 
-ssh -i $pem_file ubuntu@$ip "bash -s" <skip_commit/cleanup_previous_run.sh
+ssh -i $pem_file ubuntu@$ip "bash -s" <devvm_scripts/cleanup_previous_run.sh
 
 # You must disable backup job before starting backup tool's manual testing, to avoid jobs getting triggered, every now & then (this is ne time)
 cqlsh -k sd -e "select job_id, instance_id, status, skip, is_disabled from job_instance where job_id='BACK_UP_COCKROACH_GLOBAL'"

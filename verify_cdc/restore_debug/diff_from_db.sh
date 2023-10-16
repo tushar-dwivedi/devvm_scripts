@@ -168,7 +168,7 @@ find_diff_for_table() {
 
   extra_entries=0
   if [ $(wc -l <$extra_entries_file_local) -gt 0 ]; then
-    # cat $extra_entries_file_local | jq -sR 'crdb_records_json' | skip_commit/verify_cdc/restore_debug/remote_scripts/convert_int_to_string.py >$extra_entries_json_local
+    # cat $extra_entries_file_local | jq -sR 'crdb_records_json' | devvm_scripts/verify_cdc/restore_debug/remote_scripts/convert_int_to_string.py >$extra_entries_json_local
     cat $extra_entries_file_local | jq -sR 'crdb_records_json' >$extra_entries_json_local
     extra_entries=$(cat $extra_entries_json_local | jq 'length')
   # echo "$extra_entries_json_local: $length"
@@ -182,7 +182,7 @@ find_diff_for_table() {
 
   missing_entries=0
   if [ $(wc -l <$missing_entries_file_local) -gt 0 ]; then
-    # cat $missing_entries_file_local | jq -sR 'crdb_records_json' | skip_commit/verify_cdc/restore_debug/remote_scripts/convert_int_to_string.py >$missing_entries_json_local
+    # cat $missing_entries_file_local | jq -sR 'crdb_records_json' | devvm_scripts/verify_cdc/restore_debug/remote_scripts/convert_int_to_string.py >$missing_entries_json_local
     cat $missing_entries_file_local | jq -sR 'crdb_records_json' >$missing_entries_json_local
     missing_entries=$(cat $missing_entries_json_local | jq 'length')
   # echo "$missing_entries_json_local: $length"
@@ -196,7 +196,7 @@ find_diff_for_table() {
 
   mismatching_entries=0
   if [ $(wc -l <$mismatched_entries_file_local) -gt 0 ]; then
-    # cat $missing_entries_file_local | jq -sR 'crdb_records_json' | skip_commit/verify_cdc/restore_debug/remote_scripts/convert_int_to_string.py >$missing_entries_json_local
+    # cat $missing_entries_file_local | jq -sR 'crdb_records_json' | devvm_scripts/verify_cdc/restore_debug/remote_scripts/convert_int_to_string.py >$missing_entries_json_local
     cat $mismatched_entries_file_local | jq -sR 'crdb_records_json' >$mismatched_entries_json_local
     mismatching_entries=$(cat $mismatched_entries_json_local | jq 'length')
   # echo "$missing_entries_json_local: $length"
@@ -212,7 +212,7 @@ find_diff_for_table() {
   echo "extra_entries: $extra_entries, missing_entries: $missing_entries, mismatching_entries: $mismatching_entries"
 }
 
-# db_result_dir=./skip_commit/verify_cdc/db_result
+# db_result_dir=./devvm_scripts/verify_cdc/db_result
 # rm -rf $db_result_dir
 # mkdir -p $db_result_dir
 

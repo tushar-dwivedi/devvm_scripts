@@ -1,10 +1,10 @@
 #!/bin/bash
 
-. ./skip_commit/common/bodega_order_details.sh
+. ./devvm_scripts/common/bodega_order_details.sh
 
 ip=${bodega_ips_arr[0]}
 
-ssh -i $pem_file ubuntu@$ip "bash -s" <./skip_commit/capture_stats.sh
+ssh -i $pem_file ubuntu@$ip "bash -s" <./devvm_scripts/capture_stats.sh
 return_value=$?
 
 if [[ $return_value != 0 ]]; then

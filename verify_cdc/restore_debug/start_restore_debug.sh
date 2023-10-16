@@ -1,11 +1,11 @@
 #!/bin/bash
 
-. ./skip_commit/common/bodega_order_details.sh
-. ./skip_commit/common/copy_remote_scripts.sh
-# . ./skip_commit/verify_cdc/capture_stats.sh
-. ./skip_commit/verify_cdc/restore_debug/diff_from_db.sh
-. ./skip_commit/verify_cdc/restore_debug/fetch_and_merge_cdc_files.sh
-. ./skip_commit/verify_cdc/restore_debug/fetch_and_merge_log_files.sh
+. ./devvm_scripts/common/bodega_order_details.sh
+. ./devvm_scripts/common/copy_remote_scripts.sh
+# . ./devvm_scripts/verify_cdc/capture_stats.sh
+. ./devvm_scripts/verify_cdc/restore_debug/diff_from_db.sh
+. ./devvm_scripts/verify_cdc/restore_debug/fetch_and_merge_cdc_files.sh
+. ./devvm_scripts/verify_cdc/restore_debug/fetch_and_merge_log_files.sh
 
 remote_node_script_dir="/home/ubuntu/verify_cdc/"
 
@@ -30,7 +30,7 @@ display_restore_stats() {
   local db_1=$2
   local db_2=$3
 
-  #ssh -i $pem_file ubuntu@$ip "bash -s" < skip_commit/verify_cdc/remote_scripts/display_stats.sh "files_perf_test_only"
+  #ssh -i $pem_file ubuntu@$ip "bash -s" < devvm_scripts/verify_cdc/remote_scripts/display_stats.sh "files_perf_test_only"
   ssh -i $pem_file ubuntu@$first_node "bash ${remote_node_script_dir}/display_stats.sh $table_name $db_1 $db_2"
 }
 
@@ -50,8 +50,8 @@ IFS=', ' read -ra primary_keys <<<"$pk_columns"
 echo "pk_columns: $pk_columns"
 echo "primary_keys: $primary_keys[@]"
 
-# result_dir="./skip_commit/verify_cdc/results/"
-result_dir="skip_commit/verify_cdc/results/${bodega_order_id}"
+# result_dir="./devvm_scripts/verify_cdc/results/"
+result_dir="devvm_scripts/verify_cdc/results/${bodega_order_id}"
 
 db_result_dir="$result_dir/db_result/${db_1}-${db_2}"
 rm -rf $db_result_dir
@@ -109,15 +109,15 @@ fetch_cdc_files_from_all_nodes_and_merge $table_name $cdc_result_dir_deduped "/t
 echo "0. combined_deduped_cdc_json_file: $combined_deduped_cdc_json_file"
 
 extra_entries_vs_deduped_cdc_file="$combined_result_dir/extra_entries_vs_deduped_cdc.json"
-python3 skip_commit/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $extra_entries_file $combined_deduped_cdc_json_file $extra_entries_vs_deduped_cdc_file
+python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $extra_entries_file $combined_deduped_cdc_json_file $extra_entries_vs_deduped_cdc_file
 echo "1. extra_entries_vs_deduped_cdc_file: $extra_entries_vs_deduped_cdc_file"
 
 missing_entries_vs_deduped_cdc_file="$combined_result_dir/missing_entries_vs_deduped_cdc.json"
-python3 skip_commit/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $missing_entries_file $combined_deduped_cdc_json_file $missing_entries_vs_deduped_cdc_file
+python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $missing_entries_file $combined_deduped_cdc_json_file $missing_entries_vs_deduped_cdc_file
 echo "2. missing_entries_vs_deduped_cdc_file: $missing_entries_vs_deduped_cdc_file"
 
 mismatching_entries_vs_deduped_cdc_file="$combined_result_dir/mismatching_entries_vs_deduped_cdc.json"
-python3 skip_commit/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $mismatching_entries_file $combined_deduped_cdc_json_file $mismatching_entries_vs_deduped_cdc_file
+python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $mismatching_entries_file $combined_deduped_cdc_json_file $mismatching_entries_vs_deduped_cdc_file
 echo "3. mismatching_entries_vs_deduped_cdc_file: $mismatching_entries_vs_deduped_cdc_file"
 
 exit 1
@@ -130,11 +130,11 @@ fetch_cdc_files_from_all_nodes_and_merge $table_name $cdc_result_dir_orig "/tmp/
 echo "1. combined_orig_cdc_json_file: $combined_orig_cdc_json_file"
 
 extra_entries_vs_orig_cdc_file="$combined_result_dir/extra_entries_vs_orig_cdc.json"
-python3 skip_commit/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $extra_entries_file $combined_orig_cdc_json_file $extra_entries_vs_orig_cdc_file
+python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $extra_entries_file $combined_orig_cdc_json_file $extra_entries_vs_orig_cdc_file
 echo "2. extra_entries_vs_orig_cdc_file: $extra_entries_vs_orig_cdc_file"
 
 missing_entries_vs_orig_cdc_file="$combined_result_dir/missing_entries_vs_orig_cdc.json"
-python3 skip_commit/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $missing_entries_file $combined_orig_cdc_json_file $missing_entries_vs_orig_cdc_file
+python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $missing_entries_file $combined_orig_cdc_json_file $missing_entries_vs_orig_cdc_file
 echo "3. missing_entries_vs_orig_cdc_file: $missing_entries_vs_orig_cdc_file"
 
 ########################################################################

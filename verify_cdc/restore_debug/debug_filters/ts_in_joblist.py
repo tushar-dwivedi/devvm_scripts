@@ -3,6 +3,7 @@ import json
 
 import common
 
+
 def is_timestamp_within_interval(data, table_name, timestamp):
     for nested_list in data:
         for entry in nested_list:
@@ -31,7 +32,7 @@ def min_max_resolved_timestamp(data, table_name):
 
 if __name__ == "__main__":
     
-    input_file = "skip_commit/verify_cdc/restore_debug/debug_filters/results/coordinator_job_list.json"
+    input_file = "devvm_scripts/verify_cdc/restore_debug/debug_filters/results/coordinator_job_list.json"
 
     with open(input_file, "r") as file:
         data = json.load(file)

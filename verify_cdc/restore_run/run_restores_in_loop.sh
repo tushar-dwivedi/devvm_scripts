@@ -2,11 +2,11 @@
 
 set -x
 
-. skip_commit/common/bodega_order_details.sh
+. devvm_scripts/common/bodega_order_details.sh
 # Define the number of times to run the original script
 num_runs=$1
 
-log_dir="skip_commit/verify_cdc/loop_results/${bodega_order_id}/"
+log_dir="devvm_scripts/verify_cdc/loop_results/${bodega_order_id}/"
 rm -rf $log_dir
 mkdir -p $log_dir
 
@@ -22,7 +22,7 @@ for ((i = 1; i <= num_runs; i++)); do
   echo "Starting iteration $i, logs in $log_filename"
 
   # Run your original script and capture stdout and stderr to the log file
-  ./skip_commit/verify_cdc/restore_run/test_restore.sh >"$log_dir/$log_filename" 2>&1
+  ./devvm_scripts/verify_cdc/restore_run/test_restore.sh >"$log_dir/$log_filename" 2>&1
   if [ $? -eq 0 ]; then
     echo "test_restore.sh executed successfully with no errors."
   else
@@ -36,7 +36,7 @@ for ((i = 1; i <= num_runs; i++)); do
 
   echo "Completed iteration $i, logs in $log_filename"
 
-  ./skip_commit/verify_cdc/restore_debug/start_restore_debug.sh "files_perf_test_only"
+  ./devvm_scripts/verify_cdc/restore_debug/start_restore_debug.sh "files_perf_test_only"
   if [ $? -eq 0 ]; then
     echo "files_perf_test_only restored successfully with no errors."
   else
@@ -45,7 +45,7 @@ for ((i = 1; i <= num_runs; i++)); do
     # Take appropriate action here
   fi
 
-  ./skip_commit/verify_cdc/restore_debug/start_restore_debug.sh "files_perf_test_only__static"
+  ./devvm_scripts/verify_cdc/restore_debug/start_restore_debug.sh "files_perf_test_only__static"
   if [ $? -eq 0 ]; then
     echo "files_perf_test_only restored successfully with no errors."
   else

@@ -3,6 +3,7 @@ import json
 
 import common
 
+
 def find_time_interval(json_data, table_name, timestamp):
     for entry in json_data:
         for data_chunk in entry['DataChunks']:
@@ -32,7 +33,7 @@ def min_max_resolved_timestamp(json_data, table_name):
 
 if __name__ == "__main__":
 
-    input_file = "skip_commit/verify_cdc/restore_debug/debug_filters/results/scanner_chunks.json"
+    input_file = "devvm_scripts/verify_cdc/restore_debug/debug_filters/results/scanner_chunks.json"
 
     with open(input_file, "r") as file:
         data = json.load(file)

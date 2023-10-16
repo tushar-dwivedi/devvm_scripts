@@ -43,7 +43,7 @@ fetch_relevant_logs_from_all_nodes_and_merge() {
   cat "$result_dir_local/related_data_events_*.log" >$output_log_file
 
   cat $output_log_file | jq '.message' >$output_json_file
-  # cat $output_log_file | jq '.message' | python skip_commit/verify_cdc/filter_log_2_json.py >$output_json_file
+  # cat $output_log_file | jq '.message' | python devvm_scripts/verify_cdc/filter_log_2_json.py >$output_json_file
 
   if [[ "$__combined_log_json_file" ]]; then
     eval $__combined_log_json_file="$output_json_file"

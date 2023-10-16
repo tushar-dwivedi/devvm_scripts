@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./skip_commit/common/bodega_order_details.sh
+. ./devvm_scripts/common/bodega_order_details.sh
 
 echo "bodega_ips: ${bodega_ips}"
 
@@ -41,7 +41,7 @@ for i in "${!bodega_ips_arr[@]}"; do
 	ssh -i $pem_file ubuntu@$ip "sudo mkdir -p ${kafka_data_dir}"
 	ssh -i $pem_file ubuntu@$ip "sudo chown -R ubuntu:ubuntu ${kafka_data_dir}"
 
-	config_file="./skip_commit/kafka_setup/config_$i.properties"
+	config_file="./devvm_scripts/kafka_setup/config_$i.properties"
 
 	# write common config
 	echo "$common_config" >$config_file
@@ -66,13 +66,13 @@ for i in "${!bodega_ips_arr[@]}"; do
 	ssh -i $pem_file ubuntu@$ip "rm -f $remote_config_file"
 	scp -i $pem_file $config_file "ubuntu@$ip:$remote_config_file"
 
-	scp -i $pem_file ./skip_commit/kafka_setup/kafka.service "ubuntu@$ip:$upload_dir/"
+	scp -i $pem_file ./devvm_scripts/kafka_setup/kafka.service "ubuntu@$ip:$upload_dir/"
 	ssh -i $pem_file ubuntu@$ip "sudo cp -f ${upload_dir}/kafka.service /etc/systemd/system/kafka.service"
 
 	ssh -i $pem_file ubuntu@$ip "rm -rf $upload_dir/kafka"
 	ssh -i $pem_file ubuntu@$ip "sudo rm -rf ${kafka_bin_path}/kafka"
 
-	scp -i $pem_file -r ./skip_commit/kafka_setup/kafka "ubuntu@$ip:$upload_dir/"
+	scp -i $pem_file -r ./devvm_scripts/kafka_setup/kafka "ubuntu@$ip:$upload_dir/"
 	ssh -i $pem_file ubuntu@$ip "sudo cp -rf ${upload_dir}/kafka ${kafka_bin_path}/"
 	ssh -i $pem_file ubuntu@$ip "sudo chown -R ubuntu:ubuntu ${kafka_bin_path}/kafka"
 

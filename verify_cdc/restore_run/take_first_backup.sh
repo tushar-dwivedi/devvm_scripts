@@ -5,7 +5,7 @@ set -x
 if [ -f ~/verify_restore/restore_utils.sh ]; then
     . ~/verify_restore/restore_utils.sh
 else
-    . ./skip_commit/verify_cdc/restore_run/remote_scripts/restore_utils.sh
+    . ./devvm_scripts/verify_cdc/restore_run/remote_scripts/restore_utils.sh
 fi
 
 log_milestone "starting first backup using BACK_UP_COCKROACH_GLOBAL"

@@ -1,5 +1,5 @@
-. ./skip_commit/common/bodega_order_details.sh
-. ./skip_commit/common/copy_remote_scripts.sh
+. ./devvm_scripts/common/bodega_order_details.sh
+. ./devvm_scripts/common/copy_remote_scripts.sh
 
 set -x
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Read the first entry from the JSON file
-entry=$(jq -c '.[0]' ./skip_commit/verify_cdc/db_result/extra_entries_in_restored_table_files_perf_test_only.json)
+entry=$(jq -c '.[0]' ./devvm_scripts/verify_cdc/db_result/extra_entries_in_restored_table_files_perf_test_only.json)
 
 # Extract the values of token__uuid, uuid, and stripe_id
 token__uuid=$(jq -r '.token__uuid' <<<"$entry")

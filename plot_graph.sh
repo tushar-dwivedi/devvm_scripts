@@ -2,7 +2,7 @@
 
 pem_file="~/Documents/projects/callisto/sdmain/deployment/ssh_keys/ubuntu.pem"
 
-. ./skip_commit/common/bodega_order_details.sh
+. ./devvm_scripts/common/bodega_order_details.sh
 #echo "bodega_ips: ${bodega_ips}"
 
 #IFS="," read -a myarray <<< ${bodega_ips}
