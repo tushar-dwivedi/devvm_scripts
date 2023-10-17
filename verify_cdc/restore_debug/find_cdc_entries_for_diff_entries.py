@@ -82,7 +82,7 @@ for entry in data1:
     try:
         process_cdc_entry(data_dict, entry, output_data)
     except Exception as e:
-        print(e)
+        print("exception while processing entry:{}, exception: {}".format(entry, e))
 
 # Write the output data to the specified output file
 with open(output_file, 'w') as file:

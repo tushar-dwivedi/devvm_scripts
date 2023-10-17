@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Directory path where the gzipped files are located
-#directory="/mnt/wwn-f*/internal/cass*/cdc_data/compressed/*"
 directory=`sudo cat /var/lib/cockroachdb/rubrik_cdc/cdc_store_path | jq .cdc_store_path | xargs -I{} echo {}/cdc_data/`
 
 src_dir=$directory/compressed
