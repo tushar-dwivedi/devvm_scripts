@@ -146,14 +146,14 @@ function DisableCDC() {
 
 function EnablePublisherAndValidator() {
   # Command 1
-  output=$(sudo -u ubuntu /opt/rubrik/src/scripts/dev/rubrik_tool.py get_feature_toggle enableCDCDataPublisher)
-  echo "Output of '/opt/rubrik/src/scripts/dev/rubrik_tool.py get_feature_toggle enableCDCDataPublisher':"
-  echo "$output"
+  # output=$(sudo -u ubuntu /opt/rubrik/src/scripts/dev/rubrik_tool.py get_feature_toggle enableCDCDataPublisher)
+  # echo "Output of '/opt/rubrik/src/scripts/dev/rubrik_tool.py get_feature_toggle enableCDCDataPublisher':"
+  # echo "$output"
 
   # Command 2
-  output=$(sudo -u ubuntu /opt/rubrik/src/scripts/dev/rubrik_tool.py update_feature_toggle enableCDCDataPublisher true)
-  echo "Output of '/opt/rubrik/src/scripts/dev/rubrik_tool.py update_feature_toggle enableCDCDataPublisher true':"
-  echo "$output"
+  # output=$(sudo -u ubuntu /opt/rubrik/src/scripts/dev/rubrik_tool.py update_feature_toggle enableCDCDataPublisher true)
+  # echo "Output of '/opt/rubrik/src/scripts/dev/rubrik_tool.py update_feature_toggle enableCDCDataPublisher true':"
+  # echo "$output"
 
   # Command 3
   output=$(sudo -u ubuntu /opt/rubrik/src/scripts/dev/rubrik_tool.py get_config callisto validateCDCDataFrequency)
@@ -198,8 +198,8 @@ function RestartDBServices() {
 
 function Cleanup() {
 
-  echo "Executing '/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo systemctl stop rk-cdc_data_publisher.service'..."
-  /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo systemctl stop rk-cdc_data_publisher.service'
+  # echo "Executing '/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo systemctl stop rk-cdc_data_publisher.service'..."
+  # /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo systemctl stop rk-cdc_data_publisher.service'
 
   sudo -u ubuntu /opt/rubrik/src/scripts/dev/rubrik_tool.py update_config callisto validateCDCDataFrequency 0
 
@@ -207,14 +207,14 @@ function Cleanup() {
 
   sudo -u ubuntu /opt/rubrik/src/scripts/dev/rubrik_tool.py get_config callisto tablesForCDCDataValidation
 
-  sudo -u ubuntu /opt/rubrik/src/scripts/dev/rubrik_tool.py update_feature_toggle enableCDCDataPublisher false
+  # sudo -u ubuntu /opt/rubrik/src/scripts/dev/rubrik_tool.py update_feature_toggle enableCDCDataPublisher false
 
   RestartDBServices
 
   /opt/rubrik/deployment/cluster.sh localcluster exec all "sdservice.sh 'job-fetcher' stop" # stop job-fetcher to keep logs clean
 
-  /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/wwn-f*/internal/cass*/cdc_data/*metadata.json.gz'
-  /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/wwn-f*/internal/cass*/cdc_data/compressed/*'
+  /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/cdc_data/*metadata.json.gz'
+  /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/sharded/*'
 }
 
 function log_milestone() {

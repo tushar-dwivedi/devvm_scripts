@@ -20,6 +20,8 @@ fetch_cdc_files_from_all_nodes_and_merge() {
 
   done
 
+  set -x
+
   local filtered_for_table_json_file="$result_dir_local/node_filtered_${table_name}.json"
   cat $result_dir_local/node_filtered_${table_name}_*.json >$filtered_for_table_json_file
 
@@ -38,4 +40,6 @@ fetch_cdc_files_from_all_nodes_and_merge() {
   if [[ "$__combined_cdc_json_file" ]]; then
     eval $__combined_cdc_json_file="$final_grouped_file"
   fi
+
+  set +x
 }

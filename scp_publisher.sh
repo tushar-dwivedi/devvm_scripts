@@ -16,7 +16,7 @@ for ip in "${bodega_ips_arr[@]}"; do
 
 	#	for binary in "cqlproxy"
 	# for binary in "cdc_restore_tool" "cdc_restore_tool_1" "cockroach_backup_tool" "cdc_data_publisher" "generate_cdc_data" "validate_cdc_data" "sqload"; do #	for binary in "dedup_compressor"
-	for binary in "cdc_restore_tool" "cockroach_backup_tool" "cqlproxy"; do
+	for binary in "cdc_restore_tool" "cockroach_backup_tool" "kafka_cdc_converter"; do
 		scp -i $pem_file ./src/go/bin/$binary ubuntu@$ip:/opt/rubrik/src/go/bin/ # /home/ubuntu/tushar_bin/      #       ~/tushar_bin/cockroach       # /usr/local/bin/cockroach
 	done
 
@@ -26,26 +26,26 @@ for ip in "${bodega_ips_arr[@]}"; do
 	declare -A paths=(
 		["./deployment/ssh_keys/ubuntu.pem"]="/opt/rubrik/deployment/ssh_keys/ubuntu.pem"
 #		["./deployment/ansible/gojq.yml"]="/opt/rubrik/deployment/ansible/gojq.yml"
-		["./devvm_scripts/bin/gojq"]="/home/ubuntu/tushar_bin/gojq"
+#		["./devvm_scripts/bin/gojq"]="/home/ubuntu/tushar_bin/gojq"
 #		["./deployment/ansible/roles/gojq/defaults/main.yml"]="/opt/rubrik/deployment/ansible/roles/gojq/defaults/main.yml"
 #		["./deployment/ansible/roles/gojq/tasks/main.yml"]="/opt/rubrik/deployment/ansible/roles/gojq/tasks/main.yml"
-		["./deployment/ansible/cockroachdb_restore.yml"]="/opt/rubrik/deployment/ansible/cockroachdb_restore.yml"
-		["./deployment/ansible/roles/cqlproxy_migration/tasks/setup_publisher.yml"]="/opt/rubrik/deployment/ansible/roles/cqlproxy_migration/tasks/setup_publisher.yml"
-		["./deployment/ansible/roles/cqlproxy_migration/tasks/stop_publisher.yml"]="/opt/rubrik/deployment/ansible/roles/cqlproxy_migration/tasks/stop_publisher.yml"
+#		["./deployment/ansible/cockroachdb_restore.yml"]="/opt/rubrik/deployment/ansible/cockroachdb_restore.yml"
+#		["./deployment/ansible/roles/cqlproxy_migration/tasks/setup_publisher.yml"]="/opt/rubrik/deployment/ansible/roles/cqlproxy_migration/tasks/setup_publisher.yml"
+#		["./deployment/ansible/roles/cqlproxy_migration/tasks/stop_publisher.yml"]="/opt/rubrik/deployment/ansible/roles/cqlproxy_migration/tasks/stop_publisher.yml"
 #		["./deployment/ansible/roles/cqlproxy_migration/tasks/dedup_compression.yml"]="/opt/rubrik/deployment/ansible/roles/cqlproxy_migration/tasks/dedup_compression.yml"
-		["./deployment/ansible/roles/cqlproxy_migration/tasks/cdc_restore.yml"]="/opt/rubrik/deployment/ansible/roles/cqlproxy_migration/tasks/cdc_restore.yml"
-		["./deployment/ansible/roles/cqlproxy_migration/tasks/stop_nginx.yml"]="/opt/rubrik/deployment/ansible/roles/cqlproxy_migration/tasks/stop_nginx.yml"
-		["./src/scripts/dev/cdc_data_publisher.sh"]="/opt/rubrik/src/scripts/dev/cdc_data_publisher.sh"
-		["./src/py/cockroachdb/start_cmd.py"]="/opt/rubrik/src/py/cockroachdb/start_cmd.py"
-		["./devvm_scripts/check_logs.sh"]="~/check_logs.sh"
-		["./devvm_scripts/log_patterns.txt"]="~/log_patterns.txt"
-		["./src/scripts/callisto/CompareCrdbSnapshots.sh"]="/opt/rubrik/src/scripts/callisto/CompareCrdbSnapshots.sh"
-		["./conf/cdc_restore_tool/config.json"]="/opt/rubrik/conf/cdc_restore_tool/config.json"
-		["./tools/callisto/cdc/cdc_restore_tool/restore_monitor.sh"]="/opt/rubrik/tools/callisto/restore_monitor.sh"
-		["./devvm_scripts/bin/nethogs"]="/opt/rubrik/src/go/bin/"
-		["./devvm_scripts/bin/kafkacat"]="/opt/rubrik/src/go/bin/"
-		["./devvm_scripts/bin/librdkafka.so.1"]="/opt/rubrik/src/go/bin/"
-		["./devvm_scripts/bin/libyajl.so.2"]="/opt/rubrik/src/go/bin/"
+#		["./deployment/ansible/roles/cqlproxy_migration/tasks/cdc_restore.yml"]="/opt/rubrik/deployment/ansible/roles/cqlproxy_migration/tasks/cdc_restore.yml"
+#		["./deployment/ansible/roles/cqlproxy_migration/tasks/stop_nginx.yml"]="/opt/rubrik/deployment/ansible/roles/cqlproxy_migration/tasks/stop_nginx.yml"
+#		["./src/scripts/dev/cdc_data_publisher.sh"]="/opt/rubrik/src/scripts/dev/cdc_data_publisher.sh"
+#		["./src/py/cockroachdb/start_cmd.py"]="/opt/rubrik/src/py/cockroachdb/start_cmd.py"
+#		["./devvm_scripts/check_logs.sh"]="~/check_logs.sh"
+#		["./devvm_scripts/log_patterns.txt"]="~/log_patterns.txt"
+#		["./src/scripts/callisto/CompareCrdbSnapshots.sh"]="/opt/rubrik/src/scripts/callisto/CompareCrdbSnapshots.sh"
+#		["./conf/cdc_restore_tool/config.json"]="/opt/rubrik/conf/cdc_restore_tool/config.json"
+#		["./tools/callisto/cdc/cdc_restore_tool/restore_monitor.sh"]="/opt/rubrik/tools/callisto/restore_monitor.sh"
+#		["./devvm_scripts/bin/nethogs"]="/opt/rubrik/src/go/bin/"
+#		["./devvm_scripts/bin/kafkacat"]="/opt/rubrik/src/go/bin/"
+#		["./devvm_scripts/bin/librdkafka.so.1"]="/opt/rubrik/src/go/bin/"
+#		["./devvm_scripts/bin/libyajl.so.2"]="/opt/rubrik/src/go/bin/"
 	)
 
 	# Loop through the array of tuples and copy files from source to destination
