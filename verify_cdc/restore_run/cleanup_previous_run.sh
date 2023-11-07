@@ -74,7 +74,7 @@ if [[ $return_value != 0 ]]; then
   exit 1
 fi
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/cdc_data/'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/cdc_data/*'
 /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo rm -rf /mnt/wwn-*/internal/cass*/cdc_data'
 return_value=$?
 if [[ $return_value != 0 ]]; then
@@ -90,6 +90,7 @@ if [[ $return_value != 0 ]]; then
   exit 1
 fi
 
+#/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/*BACK_UP_COCKROACH_GLOBAL*'
 /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo rm -rf /mnt/wwn-f*/internal/cass*/*BACK_UP_COCKROACH_GLOBAL*'
 return_value=$?
 if [[ $return_value != 0 ]]; then
@@ -164,6 +165,8 @@ bootstrap_servers=$(cat /home/ubuntu/kafka_bootstrap_servers)
 /opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_2_test_only --bootstrap-server $bootstrap_servers
 /opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_3_test_only --bootstrap-server $bootstrap_servers
 
+sudo /opt/rubrik/src/scripts/cockroachdb/rkcockroach sql -e "SET CLUSTER SETTING rubrik.cdc.primary_secondary_ownership.enabled=false"
+
 sudo /opt/rubrik/src/scripts/cockroachdb/rkcockroach sql -e "TRUNCATE sd.${table_name} CASCADE"
 return_value=$?
 if [[ $return_value != 0 ]]; then
@@ -208,7 +211,7 @@ echo "bootstrap_servers: ${bootstrap_servers}"
 
 sudo -i cockroach sql -e "CREATE CHANGEFEED FOR TABLE sd.${table_name} INTO '${bootstrap_servers}?topic_name=${table_name}' WITH updated, key_in_value, envelope=wrapped, kafka_sink_config = '{\"Compression\": \"GZIP\"}'; "
 
-sudo -i cockroach sql -e "CREATE CHANGEFEED FOR TABLE sd.mix_load_1_test_only INTO '${bootstrap_servers}?topic_name=mix_load_1_test_only' WITH updated, key_in_value, envelope=wrapped, kafka_sink_config = '{\"Compression\": \"GZIP\"}'; "
+# sudo -i cockroach sql -e "CREATE CHANGEFEED FOR TABLE sd.mix_load_1_test_only INTO '${bootstrap_servers}?topic_name=mix_load_1_test_only' WITH updated, key_in_value, envelope=wrapped, kafka_sink_config = '{\"Compression\": \"GZIP\"}'; "
 
 # enable backup jobs
 # /usr/bin/cqlsh -k sd -e "update job_instance set skip=false where job_id='BACK_UP_COCKROACH_GLOBAL'"
