@@ -85,12 +85,12 @@ fi
 echo "Errors found, need to debug further ..."
 
 cdc_result_dir_deduped="$result_dir/cdc_result_deduped"
-rm -rf $cdc_result_dir_deduped
-mkdir -p $cdc_result_dir_deduped
+# rm -rf $cdc_result_dir_deduped
+# mkdir -p $cdc_result_dir_deduped
 
 cdc_result_dir_orig="$result_dir/cdc_result_orig"
-rm -rf $cdc_result_dir_orig
-mkdir -p $cdc_result_dir_orig
+# rm -rf $cdc_result_dir_orig
+# mkdir -p $cdc_result_dir_orig
 
 combined_result_dir="$result_dir/combined_result"
 rm -rf $combined_result_dir
@@ -105,30 +105,29 @@ mkdir -p $logs_result_dir
 ########################################################################
 # Process all the deduped CDC files, and convert them to JSON files
 ########################################################################
-fetch_cdc_files_from_all_nodes_and_merge $table_name $cdc_result_dir_deduped "/tmp/cdc_result_deduped" 1 combined_deduped_cdc_json_file
+# fetch_cdc_files_from_all_nodes_and_merge $table_name $cdc_result_dir_deduped "/tmp/cdc_result_deduped" 1 combined_deduped_cdc_json_file
 echo "0. combined_deduped_cdc_json_file: $combined_deduped_cdc_json_file"
 
 set -x
 extra_entries_vs_deduped_cdc_file="$combined_result_dir/extra_entries_vs_deduped_cdc.json"
-python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $extra_entries_file $combined_deduped_cdc_json_file $extra_entries_vs_deduped_cdc_file
+python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $extra_entries_file $combined_deduped_cdc_json_file $extra_entries_vs_deduped_cdc_file 0
 echo "1. extra_entries_vs_deduped_cdc_file: $extra_entries_vs_deduped_cdc_file"
 
 missing_entries_vs_deduped_cdc_file="$combined_result_dir/missing_entries_vs_deduped_cdc.json"
-python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $missing_entries_file $combined_deduped_cdc_json_file $missing_entries_vs_deduped_cdc_file
+python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $missing_entries_file $combined_deduped_cdc_json_file $missing_entries_vs_deduped_cdc_file 0
 echo "2. missing_entries_vs_deduped_cdc_file: $missing_entries_vs_deduped_cdc_file"
 
 mismatching_entries_vs_deduped_cdc_file="$combined_result_dir/mismatching_entries_vs_deduped_cdc.json"
-python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $mismatching_entries_file $combined_deduped_cdc_json_file $mismatching_entries_vs_deduped_cdc_file
+python3 devvm_scripts/verify_cdc/restore_debug/find_cdc_entries_for_diff_entries.py $mismatching_entries_file $combined_deduped_cdc_json_file $mismatching_entries_vs_deduped_cdc_file 1
 echo "3. mismatching_entries_vs_deduped_cdc_file: $mismatching_entries_vs_deduped_cdc_file"
 
 set +x
-exit 1
 
 ########################################################################
 # Process all the original CDC files, and convert them to JSON files
 ########################################################################
 
-fetch_cdc_files_from_all_nodes_and_merge $table_name $cdc_result_dir_orig "/tmp/cdc_result_orig" 0 combined_orig_cdc_json_file
+# fetch_cdc_files_from_all_nodes_and_merge $table_name $cdc_result_dir_orig "/tmp/cdc_result_orig" 0 combined_orig_cdc_json_file
 echo "1. combined_orig_cdc_json_file: $combined_orig_cdc_json_file"
 
 extra_entries_vs_orig_cdc_file="$combined_result_dir/extra_entries_vs_orig_cdc.json"

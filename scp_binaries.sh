@@ -14,9 +14,10 @@ for ip in "${bodega_ips_arr[@]}"; do
 
 	ssh -i $pem_file ubuntu@$ip 'mkdir -p /home/ubuntu/tushar_bin/'
 
-	#	for binary in "cqlproxy"
-	# for binary in "cdc_restore_tool" "cdc_restore_tool_1" "cockroach_backup_tool" "cdc_data_publisher" "generate_cdc_data" "validate_cdc_data" "sqload"; do #	for binary in "dedup_compressor"
-	for binary in "cdc_restore_tool" "cockroach_backup_tool" "kafka_cdc_converter"; do
+	for binary in "kafka_cdc_converter"; do
+#	for binary in "cdc_restore_tool" "cdc_restore_tool_1" "cockroach_backup_tool" "cdc_data_publisher" "generate_cdc_data" "validate_cdc_data" "sqload"; do
+#	for binary in "dedup_compressor"; do
+#	for binary in "cdc_restore_tool" "cockroach_backup_tool" "kafka_cdc_converter"; do
 		scp -i $pem_file ./src/go/bin/$binary ubuntu@$ip:/opt/rubrik/src/go/bin/ # /home/ubuntu/tushar_bin/      #       ~/tushar_bin/cockroach       # /usr/local/bin/cockroach
 	done
 
@@ -64,3 +65,23 @@ for ip in "${bodega_ips_arr[@]}"; do
 	done
 
 done
+
+#pem_file="$HOME/Documents/projects/callisto/sdmain/deployment/ssh_keys/ubuntu.pem"
+cockroach_bin="./cockroach/cockroach"
+
+for ip in "${bodega_ips_arr[@]}"; do
+        ssh-keyscan $ip >> ~/.ssh/known_hosts
+        ssh -i $pem_file ubuntu@$ip 'sudo systemctl stop cockroachdb'
+        sleep 2
+        ssh -i $pem_file ubuntu@$ip 'mkdir -p /home/ubuntu/tushar_bin/'
+
+        scp -i $pem_file $cockroach_bin ubuntu@$ip:~/tushar_bin/cockroach #       ~/tushar_bin/cockroach  # /usr/local/bin/cockroach
+        ssh -i $pem_file ubuntu@$ip 'sudo cp /home/ubuntu/tushar_bin/cockroach /usr/local/bin/cockroach'
+
+done
+
+for ip in "${bodega_ips_arr[@]}"; do
+        ssh -i $pem_file ubuntu@$ip 'sudo systemctl start cockroachdb'
+        sleep 2
+done
+

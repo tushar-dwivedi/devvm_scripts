@@ -21,6 +21,8 @@ done
 
 log_milestone "done with first backup using BACK_UP_COCKROACH_GLOBAL"
 
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/*-BACK_UP_COCKROACH_GLOBAL-*/*'
+
 EnableCDC
 
 log_milestone "enabled CDC after taking first backup"
