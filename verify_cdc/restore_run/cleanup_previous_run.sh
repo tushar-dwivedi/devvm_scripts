@@ -48,9 +48,9 @@ fi
 
 log_milestone "stopped all services"
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-f*/internal/cass*/cdc_data'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-*/internal/cass*/cdc_data'
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-f*/internal/cass*/'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-*/internal/cass*/'
 
 /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo systemctl stop cqlproxy'
 return_value=$?
@@ -74,7 +74,7 @@ if [[ $return_value != 0 ]]; then
   exit 1
 fi
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/cdc_data/*'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-*/internal/cass*/cdc_data/*'
 /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo rm -rf /mnt/wwn-*/internal/cass*/cdc_data'
 return_value=$?
 if [[ $return_value != 0 ]]; then
@@ -82,7 +82,7 @@ if [[ $return_value != 0 ]]; then
   exit 1
 fi
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/intermediate_cdc_data/'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-*/internal/cass*/intermediate_cdc_data/'
 /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo rm -rf /mnt/wwn-*/internal/cass*/intermediate_cdc_data'
 return_value=$?
 if [[ $return_value != 0 ]]; then
@@ -90,8 +90,8 @@ if [[ $return_value != 0 ]]; then
   exit 1
 fi
 
-#/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/*BACK_UP_COCKROACH_GLOBAL*'
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo rm -rf /mnt/wwn-f*/internal/cass*/*BACK_UP_COCKROACH_GLOBAL*'
+#/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-*/internal/cass*/*BACK_UP_COCKROACH_GLOBAL*'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo rm -rf /mnt/wwn-*/internal/cass*/*BACK_UP_COCKROACH_GLOBAL*'
 return_value=$?
 if [[ $return_value != 0 ]]; then
   echo "An error occurred while executing the command. Exiting the script."
@@ -158,12 +158,12 @@ log_milestone "start job fetcher services"
 sleep 120
 
 table_name="files_perf_test_only"
-bootstrap_servers=$(cat /home/ubuntu/kafka_bootstrap_servers)
+#bootstrap_servers=$(cat /home/ubuntu/kafka_bootstrap_servers)
 
-/opt/kafka/bin/kafka-topics.sh --delete --topic $table_name --bootstrap-server $bootstrap_servers
-/opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_1_test_only --bootstrap-server $bootstrap_servers
-/opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_2_test_only --bootstrap-server $bootstrap_servers
-/opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_3_test_only --bootstrap-server $bootstrap_servers
+#/opt/kafka/bin/kafka-topics.sh --delete --topic $table_name --bootstrap-server $bootstrap_servers
+#/opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_1_test_only --bootstrap-server $bootstrap_servers
+#/opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_2_test_only --bootstrap-server $bootstrap_servers
+#/opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_3_test_only --bootstrap-server $bootstrap_servers
 
 sudo /opt/rubrik/src/scripts/cockroachdb/rkcockroach sql -e "SET CLUSTER SETTING rubrik.cdc.primary_secondary_ownership.enabled=false"
 
@@ -209,7 +209,7 @@ sudo /opt/rubrik/src/scripts/cockroachdb/rkcockroach sql -e "SHOW ZONE CONFIGURA
 
 echo "bootstrap_servers: ${bootstrap_servers}"
 
-sudo -i cockroach sql -e "CREATE CHANGEFEED FOR TABLE sd.${table_name} INTO '${bootstrap_servers}?topic_name=${table_name}' WITH updated, key_in_value, envelope=wrapped, kafka_sink_config = '{\"Compression\": \"GZIP\"}'; "
+#sudo -i cockroach sql -e "CREATE CHANGEFEED FOR TABLE sd.${table_name} INTO '${bootstrap_servers}?topic_name=${table_name}' WITH updated, key_in_value, envelope=wrapped, kafka_sink_config = '{\"Compression\": \"GZIP\"}'; "
 
 # sudo -i cockroach sql -e "CREATE CHANGEFEED FOR TABLE sd.mix_load_1_test_only INTO '${bootstrap_servers}?topic_name=mix_load_1_test_only' WITH updated, key_in_value, envelope=wrapped, kafka_sink_config = '{\"Compression\": \"GZIP\"}'; "
 

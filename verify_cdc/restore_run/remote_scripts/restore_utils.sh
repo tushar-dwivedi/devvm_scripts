@@ -97,7 +97,7 @@ function run_backup_and_check_job_status() {
     check_job_status $id
   done
 
-  /opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-f*/internal/cass*/'
+  /opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-*/internal/cass*/'
 }
 
 function EnableCDC() {

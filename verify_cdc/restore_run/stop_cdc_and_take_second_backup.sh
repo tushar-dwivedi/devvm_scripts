@@ -10,7 +10,7 @@ fi
 
 # Logical flow of operations
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-f*/internal/cass*/cdc_data'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-*/internal/cass*/cdc_data'
 
 DisableCDC
 
@@ -18,7 +18,7 @@ sleep 10
 
 log_milestone "disabled CDC before taking second backup"
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-f*/internal/cass*/cdc_data'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-*/internal/cass*/cdc_data'
 
 EnablePublisherAndValidator
 
