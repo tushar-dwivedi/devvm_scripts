@@ -24,13 +24,13 @@ EnablePublisherAndValidator
 
 log_milestone "enabled Publisher before taking second backup"
 
-echo "Executing 'rkcl exec all 'sudo systemctl start rk-cdc_data_publisher.service'..."
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo systemctl start rk-cdc_data_publisher.service'
-return_code=$?
-if [ $return_code -ne 0 ]; then
-    echo "Failed to start rk-cdc_data_publisher.service. Return code: $return_code"
-    exit $return_code
-fi
+#echo "Executing 'rkcl exec all 'sudo systemctl start rk-cdc_data_publisher.service'..."
+#/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo systemctl start rk-cdc_data_publisher.service'
+#return_code=$?
+#if [ $return_code -ne 0 ]; then
+#    echo "Failed to start rk-cdc_data_publisher.service. Return code: $return_code"
+#    exit $return_code
+#fi
 
 log_milestone "starting second backup using BACK_UP_COCKROACH_GLOBAL"
 

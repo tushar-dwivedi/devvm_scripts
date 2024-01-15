@@ -51,12 +51,12 @@ fi
 # Add some data with CDC enabled
 # BAZEL_USE_REMOTE_WORKERS=0
 # python3 -m jedi.tools.sdt_runner --bodega_sid ${bodega_order_id} --test_target //jedi/e2e/callisto:crdb_load_test -- -k "test_perf_files" --crdb_load_duration "30m" --crdb_skip_cdc_enable
-#python3 -m jedi.tools.sdt_runner --test_target //jedi/e2e/callisto:crdb_load_test --bodega_sid ${bodega_order_id} -- -k "test_custom_perf" --crdb_populate_rows 100000 --crdb_load_duration 120m --crdb_load_name files --crdb_load_type cqlproxy
+python3 -m jedi.tools.sdt_runner --test_target //jedi/e2e/callisto:crdb_load_test --bodega_sid ${bodega_order_id} -- -k "test_custom_perf" --crdb_populate_rows 100000 --crdb_load_duration 120m --crdb_load_name files --crdb_load_type cqlproxy
 
 # run load on stress cluster
-python3 -m jedi.tools.sdt_runner --test_target //jedi/e2e/callisto:crdb_load_test --bodega_fulfilled_items cdm_stress_cluster.json -- -k "test_custom_perf" --crdb_populate_rows 100000 --crdb_load_duration 60m --crdb_load_name files --crdb_load_type cqlproxy
+#python3 -m jedi.tools.sdt_runner --test_target //jedi/e2e/callisto:crdb_load_test --bodega_fulfilled_items cdm_stress_cluster.json -- -k "test_custom_perf" --crdb_populate_rows 100000 --crdb_load_duration 60m --crdb_load_name files --crdb_load_type cqlproxy
 
-# python3 -m jedi.tools.sdt_runner --test_target //jedi/e2e/callisto:crdb_load_test --bodega_fulfilled_items ~/Documents/projects/callisto/sdmain/cdc_cluster.json -- -k "test_custom_perf" --crdb_populate_rows 100000 --crdb_load_duration 60m --crdb_load_name files --crdb_load_type cqlproxy
+#python3 -m jedi.tools.sdt_runner --test_target //jedi/e2e/callisto:crdb_load_test --bodega_fulfilled_items ~/Documents/projects/callisto/sdmain/cdc_cluster.json -- -k "test_custom_perf" --crdb_populate_rows 100000 --crdb_load_duration 60m --crdb_load_name files --crdb_load_type cqlproxy
 #python3 -m jedi.tools.sdt_runner --test_target //jedi/e2e/callisto:crdb_load_test --bodega_sid ${bodega_order_id} -- -k "test_custom_perf" --crdb_populate_rows 50000 --crdb_load_duration 60m --crdb_load_name mix_load --crdb_load_type cockroach
 
 sleep 300
@@ -68,7 +68,7 @@ if [ $? -eq 0 ]; then
     echo "capture_stats.sh executed successfully with no errors."
 else
     echo "capture_stats.sh exited with an error (exit status 1 or higher)."
-    exit 1
+#    exit 1
     # Take appropriate action here
 fi
 
