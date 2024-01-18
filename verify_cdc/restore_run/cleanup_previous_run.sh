@@ -74,7 +74,7 @@ if [[ $return_value != 0 ]]; then
   exit 1
 fi
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-*/internal/cass*/cdc_data/*'
+# /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-*/internal/cass*/cdc_data/*'
 /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo rm -rf /mnt/wwn-*/internal/cass*/cdc_data'
 return_value=$?
 if [[ $return_value != 0 ]]; then
@@ -82,7 +82,7 @@ if [[ $return_value != 0 ]]; then
   exit 1
 fi
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-*/internal/cass*/intermediate_cdc_data/'
+# /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-*/internal/cass*/intermediate_cdc_data/'
 /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo rm -rf /mnt/wwn-*/internal/cass*/intermediate_cdc_data'
 return_value=$?
 if [[ $return_value != 0 ]]; then
@@ -90,7 +90,7 @@ if [[ $return_value != 0 ]]; then
   exit 1
 fi
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-*/internal/cass*/*BACK_UP_COCKROACH_GLOBAL*'
+# /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo chattr -i -RV /mnt/wwn-*/internal/cass*/*BACK_UP_COCKROACH_GLOBAL*'
 /opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo rm -rf /mnt/wwn-*/internal/cass*/*BACK_UP_COCKROACH_GLOBAL*'
 return_value=$?
 if [[ $return_value != 0 ]]; then

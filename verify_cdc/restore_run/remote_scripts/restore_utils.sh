@@ -213,8 +213,8 @@ function Cleanup() {
 
   /opt/rubrik/deployment/cluster.sh localcluster exec all "sdservice.sh 'job-fetcher' stop" # stop job-fetcher to keep logs clean
 
-  /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/cdc_data/*metadata.json.gz'
-  /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/sharded/*'
+  # /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/cdc_data/*metadata.json.gz'
+  # /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/sharded/*'
 }
 
 function log_milestone() {
