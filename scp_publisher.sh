@@ -16,12 +16,12 @@ for ip in "${bodega_ips_arr[@]}"; do
 
 #	for binary in "kafka_cdc_converter"; do
 #	for binary in "cdc_restore_tool" "cdc_restore_tool_1" "cockroach_backup_tool" "cdc_data_publisher" "generate_cdc_data" "validate_cdc_data" "sqload"; do
-	for binary in "cdc_data_publisher" "sqload"; do
+	for binary in "cdc_data_publisher"; do
 #	for binary in "cdc_restore_tool" "cockroach_backup_tool" "kafka_cdc_converter"; do
 		scp -i $pem_file ./src/go/bin/$binary ubuntu@$ip:/opt/rubrik/src/go/bin/ # /home/ubuntu/tushar_bin/      #       ~/tushar_bin/cockroach       # /usr/local/bin/cockroach
 	done
 
-#	ssh -i $pem_file ubuntu@$ip "mkdir -p /opt/rubrik/conf/cdc_restore_tool/ /opt/rubrik/tools/callisto/"
+	ssh -i $pem_file ubuntu@$ip "mkdir -p /opt/rubrik/conf/cdc_data_publisher/ /opt/rubrik/tools/callisto/"
 
 	# Define the array of tuples (source and destination paths)
 	declare -A paths=(
@@ -41,7 +41,7 @@ for ip in "${bodega_ips_arr[@]}"; do
 #		["./devvm_scripts/check_logs.sh"]="~/check_logs.sh"
 #		["./devvm_scripts/log_patterns.txt"]="~/log_patterns.txt"
 #		["./src/scripts/callisto/CompareCrdbSnapshots.sh"]="/opt/rubrik/src/scripts/callisto/CompareCrdbSnapshots.sh"
-#		["./conf/cdc_restore_tool/config.json"]="/opt/rubrik/conf/cdc_restore_tool/config.json"
+		["./conf/cdc_data_publisher/config.json"]="/opt/rubrik/conf/cdc_data_publisher/config.json"
 #		["./tools/callisto/cdc/cdc_restore_tool/restore_monitor.sh"]="/opt/rubrik/tools/callisto/restore_monitor.sh"
 #		["./devvm_scripts/bin/nethogs"]="/opt/rubrik/src/go/bin/"
 #		["./devvm_scripts/bin/kafkacat"]="/opt/rubrik/src/go/bin/"
