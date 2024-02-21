@@ -1,0 +1,174 @@
+bootstrap_credentials:
+  email: rubrikpa@gmail.com
+  password: RubrikAdminPassword
+  username: admin
+cluster:
+  dns_nameservers:
+  - 10.1.253.53
+  - 10.1.253.140
+  - 10.1.253.141
+  dns_search_domains:
+  - rubrik-lab.com
+  name: cdm-cluster-k5a8k3-oarosbc
+  ntp_servers:
+  - ntp-1.net.rubrik.com
+  - ntp-2.net.rubrik.com
+  - ntp-3.net.rubrik.com
+deployment:
+  cluster_sh: ../deployment/cluster.sh
+  inventory: cdm-cluster-k5a8k3-oarosbc_ipv6
+nodes:
+- global_ipv6: null
+  hostname: SJC-B40418-13-A
+  ipmi:
+    address: 10.4.120.103
+    default_admin_user: ADMIN
+    gateway: 10.4.120.1
+    netmask: 255.255.255.0
+    reserved_dhcp_address: 10.4.120.26
+  ipv4:
+    address: 10.0.211.238
+    gateway: 10.0.0.255
+    netmask: 255.255.0.0
+  ipv6:
+    address: fe80::7ec2:55ff:fe20:5cc9
+    interface: bond0
+  ll_ipv6: null
+  pxe: true
+  pxeserverip: 10.4.120.4
+- global_ipv6: null
+  hostname: SJC-B40418-13-B
+  ipmi:
+    address: 10.4.120.104
+    default_admin_user: ADMIN
+    gateway: 10.4.120.1
+    netmask: 255.255.255.0
+    reserved_dhcp_address: 10.4.120.27
+  ipv4:
+    address: 10.0.211.239
+    gateway: 10.0.0.255
+    netmask: 255.255.0.0
+  ipv6:
+    address: fe80::7ec2:55ff:fe20:61d9
+    interface: bond0
+  ll_ipv6: null
+  pxe: true
+  pxeserverip: 10.4.120.4
+- global_ipv6: null
+  hostname: SJC-B40418-13-C
+  ipmi:
+    address: 10.4.120.105
+    default_admin_user: ADMIN
+    gateway: 10.4.120.1
+    netmask: 255.255.255.0
+    reserved_dhcp_address: 10.4.120.28
+  ipv4:
+    address: 10.0.211.240
+    gateway: 10.0.0.255
+    netmask: 255.255.0.0
+  ipv6:
+    address: fe80::7ec2:55ff:fe20:6369
+    interface: bond0
+  ll_ipv6: null
+  pxe: true
+  pxeserverip: 10.4.120.4
+- global_ipv6: null
+  hostname: SJC-B40418-13-D
+  ipmi:
+    address: 10.4.120.106
+    default_admin_user: ADMIN
+    gateway: 10.4.120.1
+    netmask: 255.255.255.0
+    reserved_dhcp_address: 10.4.120.29
+  ipv4:
+    address: 10.0.211.241
+    gateway: 10.0.0.255
+    netmask: 255.255.0.0
+  ipv6:
+    address: fe80::7ec2:55ff:fe20:3f09
+    interface: bond0
+  ll_ipv6: null
+  pxe: true
+  pxeserverip: 10.4.120.4
+- global_ipv6: null
+  hostname: SJC-B40319-11-A
+  ipmi:
+    address: 10.4.118.163
+    default_admin_user: ADMIN
+    gateway: 10.4.118.1
+    netmask: 255.255.255.0
+    reserved_dhcp_address: 10.4.118.87
+  ipv4:
+    address: 10.0.211.143
+    gateway: 10.0.0.255
+    netmask: 255.255.0.0
+  ipv6:
+    address: fe80::7ec2:55ff:fe1b:6e3b
+    interface: bond0
+  ll_ipv6: null
+  pxe: true
+  pxeserverip: 10.4.118.4
+- global_ipv6: null
+  hostname: SJC-B40319-11-B
+  ipmi:
+    address: 10.4.118.164
+    default_admin_user: ADMIN
+    gateway: 10.4.118.1
+    netmask: 255.255.255.0
+    reserved_dhcp_address: 10.4.118.88
+  ipv4:
+    address: 10.0.211.144
+    gateway: 10.0.0.255
+    netmask: 255.255.0.0
+  ipv6:
+    address: fe80::7ec2:55ff:fe1b:5c7b
+    interface: bond0
+  ll_ipv6: null
+  pxe: true
+  pxeserverip: 10.4.118.4
+- global_ipv6: null
+  hostname: SJC-B40319-11-C
+  ipmi:
+    address: 10.4.118.165
+    default_admin_user: ADMIN
+    gateway: 10.4.118.1
+    netmask: 255.255.255.0
+    reserved_dhcp_address: 10.4.118.89
+  ipv4:
+    address: 10.0.211.145
+    gateway: 10.0.0.255
+    netmask: 255.255.0.0
+  ipv6:
+    address: fe80::7ec2:55ff:fe1a:7681
+    interface: bond0
+  ll_ipv6: null
+  pxe: true
+  pxeserverip: 10.4.118.4
+- global_ipv6: null
+  hostname: SJC-B40319-11-D
+  ipmi:
+    address: 10.4.118.166
+    default_admin_user: ADMIN
+    gateway: 10.4.118.1
+    netmask: 255.255.255.0
+    reserved_dhcp_address: 10.4.118.90
+  ipv4:
+    address: 10.0.211.146
+    gateway: 10.0.0.255
+    netmask: 255.255.0.0
+  ipv6:
+    address: fe80::7ec2:55ff:fe1b:591b
+    interface: bond0
+  ll_ipv6: null
+  pxe: true
+  pxeserverip: 10.4.118.4
+rest_credentials:
+  password: RubrikAdminPassword
+  username: admin
+spec_version: '0.1'
+test_workers:
+  inventory: ../deployment/ansible/localhost_inventory
+user:
+  email: rubrikpa@gmail.com
+  password: RubrikAdminPassword
+  user: admin

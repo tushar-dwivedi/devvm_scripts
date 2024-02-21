@@ -14,9 +14,9 @@ for ip in "${bodega_ips_arr[@]}"; do
 
 	ssh -i $pem_file ubuntu@$ip 'mkdir -p /home/ubuntu/tushar_bin/'
 
-	for binary in "kafka_cdc_converter"; do
+#	for binary in "kafka_cdc_converter"; do
 #	for binary in "cdc_restore_tool" "cdc_restore_tool_1" "cockroach_backup_tool" "cdc_data_publisher" "generate_cdc_data" "validate_cdc_data" "sqload"; do
-#	for binary in "cdc_restore_tool" "sqload"; do
+	for binary in "cdc_data_publisher" "sqload"; do
 #	for binary in "cdc_restore_tool" "cockroach_backup_tool" "kafka_cdc_converter"; do
 		scp -i $pem_file ./src/go/bin/$binary ubuntu@$ip:/opt/rubrik/src/go/bin/ # /home/ubuntu/tushar_bin/      #       ~/tushar_bin/cockroach       # /usr/local/bin/cockroach
 	done

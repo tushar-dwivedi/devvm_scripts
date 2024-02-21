@@ -165,7 +165,7 @@ table_name="files_perf_test_only"
 #/opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_2_test_only --bootstrap-server $bootstrap_servers
 #/opt/kafka/bin/kafka-topics.sh --delete --topic mix_load_3_test_only --bootstrap-server $bootstrap_servers
 
-sudo /opt/rubrik/src/scripts/cockroachdb/rkcockroach sql -e "SET CLUSTER SETTING rubrik.cdc.primary_secondary_ownership.enabled=false"
+sudo /opt/rubrik/src/scripts/cockroachdb/rkcockroach sql -e "SET CLUSTER SETTING rubrik.cdc.primary_secondary_ownership.enabled=true"
 
 sudo /opt/rubrik/src/scripts/cockroachdb/rkcockroach sql -e "TRUNCATE sd.${table_name} CASCADE"
 return_value=$?
