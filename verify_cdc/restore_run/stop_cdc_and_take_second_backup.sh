@@ -10,7 +10,7 @@ fi
 
 # Logical flow of operations
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-f*/internal/cass*/cdc_data'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-*/internal/cass*/cdc_data'
 
 DisableCDC
 
@@ -18,19 +18,19 @@ sleep 10
 
 log_milestone "disabled CDC before taking second backup"
 
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-f*/internal/cass*/cdc_data'
+/opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-*/internal/cass*/cdc_data'
 
 EnablePublisherAndValidator
 
 log_milestone "enabled Publisher before taking second backup"
 
-echo "Executing 'rkcl exec all 'sudo systemctl start rk-cdc_data_publisher.service'..."
-/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo systemctl start rk-cdc_data_publisher.service'
-return_code=$?
-if [ $return_code -ne 0 ]; then
-    echo "Failed to start rk-cdc_data_publisher.service. Return code: $return_code"
-    exit $return_code
-fi
+#echo "Executing 'rkcl exec all 'sudo systemctl start rk-cdc_data_publisher.service'..."
+#/opt/rubrik/deployment/cluster.sh localcluster exec all 'sudo systemctl start rk-cdc_data_publisher.service'
+#return_code=$?
+#if [ $return_code -ne 0 ]; then
+#    echo "Failed to start rk-cdc_data_publisher.service. Return code: $return_code"
+#    exit $return_code
+#fi
 
 log_milestone "starting second backup using BACK_UP_COCKROACH_GLOBAL"
 

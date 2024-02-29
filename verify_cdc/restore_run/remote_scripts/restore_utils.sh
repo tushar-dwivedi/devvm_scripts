@@ -97,7 +97,7 @@ function run_backup_and_check_job_status() {
     check_job_status $id
   done
 
-  /opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-f*/internal/cass*/'
+  /opt/rubrik/deployment/cluster.sh localcluster exec all 'ls -lh /mnt/wwn-*/internal/cass*/'
 }
 
 function EnableCDC() {
@@ -213,8 +213,8 @@ function Cleanup() {
 
   /opt/rubrik/deployment/cluster.sh localcluster exec all "sdservice.sh 'job-fetcher' stop" # stop job-fetcher to keep logs clean
 
-  /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/cdc_data/*metadata.json.gz'
-  /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/sharded/*'
+  # /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/cdc_data/*metadata.json.gz'
+  # /opt/rubrik/deployment/cluster.sh localcluster exec all 'chattr +i -V /mnt/*/internal/cassandra_snapshots/sharded/*'
 }
 
 function log_milestone() {
