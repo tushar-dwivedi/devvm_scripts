@@ -1,3 +1,4 @@
 kafka_setup/kafka
 kafka_setup/kafka_2.13-3.5.1.tgz
+kafka_setup/config_*.properties
 verify_cdc/results

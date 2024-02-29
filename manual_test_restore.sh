@@ -32,9 +32,9 @@ rkcockroach sql -e "DROP DATABASE sd_restore CASCADE"
 sudo /opt/rubrik/src/scripts/dev/rubrik_tool.py update_feature_toggle enableCDCDataPublisher true
 
 On every node:
-sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/cdc_data/
-ls -ltr /mnt/wwn-f*/internal/cass*/cdc_data
-cd /mnt/wwn-f*/internal/cass*/cdc_data/
+sudo chattr -i -RV /mnt/wwn-*/internal/cass*/cdc_data/
+ls -ltr /mnt/wwn-*/internal/cass*/cdc_data
+cd /mnt/wwn-*/internal/cass*/cdc_data/
 cd ..
 
 ls -ltrh intermediate_cdc_data/cdc_orig/ && sudo mv intermediate_cdc_data/cdc_orig/* cdc_data/ && sudo rm -rf cdc_data/compressed/ cdc_data/reversed/ && sudo rm -rf intermediate_cdc_data/* && ls -ltrh cdc_data/
@@ -50,7 +50,7 @@ rkcl exec all 'sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/cdc_data/' &&
 
 
 # sudo cp /opt/rubrik/conf/cdc_data_publisher/config_used.json /opt/rubrik/conf/cdc_data_publisher/config.json
-ls -ltr /mnt/wwn-f*/internal/cass*/
+ls -ltr /mnt/wwn-*/internal/cass*/
 # /mnt/wwn-f51dae90-bd38-4b92-ad50-303f4181ce89/internal/cassandra_snapshots/
 #take the last 2 timestamps of backup folders, before restored:
 # ubuntu@vm-machine-ytbyio-tnc4mjs:/mnt/wwn-f51d0f9e-d16e-4fb3-87b0-89bd5bf4b825/internal/cassandra_snapshots$ ls -ltr /mnt/wwn-f*/internal/cass*/
@@ -67,9 +67,9 @@ find . -type f -name "*_metadata.json.gz" -exec sudo bash -c 'file="{}"; filenam
 
 find . -type f -name "*_metadata.json.gz" -exec sudo bash -c 'file="{}"; filename="${file##*/}"; new_filename="${filename%%.gz}"; zgrep 'files_perf_test_only' $file > filtered/$new_filename; gzip filtered/$new_filename' \;
 
-sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/cdc_data/
+#sudo chattr -i -RV /mnt/wwn-f*/internal/cass*/cdc_data/
 
-cd /mnt/wwn-f*/internal/cass*/cdc_data
+cd /mnt/wwn-*/internal/cass*/cdc_data
 cd ..
 #sudo rm -rf last_saved_cdc_files/*
 #sudo mkdir last_saved_cdc_files
@@ -77,6 +77,6 @@ sudo mv intermediate_cdc_data/cdc_orig/* last_saved_cdc_files/
 sudo mv cdc_data/*metadata.json.gz last_saved_cdc_files/
 sudo cp -rf *BACK_UP_COCKROACH_GLOBAL* last_saved_cdc_files/
 
-sudo chattr +i -RV last_saved_cdc_files
+#sudo chattr +i -RV last_saved_cdc_files
 
 set+x
