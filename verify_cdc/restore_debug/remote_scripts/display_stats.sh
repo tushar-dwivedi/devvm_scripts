@@ -17,7 +17,7 @@ display_restore_stats() {
   # sudo /opt/rubrik/src/scripts/cockroachdb/rkcockroach sql -e "select work_assignment_id, cast(cast(progress_report_timestamp/1000 as int) as timestamp), internal_timestamp, job_id_list, status from sd.cdc_data_publishing_progress_reports;"
 
   # /opt/rubrik/deployment/cluster.sh localcluster exec all 'zgrep -i "isDeleted" /mnt/wwn-*/internal/cass*/sharded/* | wc -l'
-  #/opt/rubrik/deployment/cluster.sh localcluster exec all 'a=$(zgrep "records and deleted" /var/log/cdc_data_publisher/*\.s | wc -l) && b=$(grep "records and deleted" /var/log/cdc_data_publisher/current | wc -l); c=$(expr $a + $b); echo "a:$a, b:$b, c:$c"'
+  # /opt/rubrik/deployment/cluster.sh localcluster exec all 'a=$(zgrep "records and deleted" /var/log/cdc_data_publisher/*\.s | wc -l) && b=$(grep "records and deleted" /var/log/cdc_data_publisher/current | wc -l); c=$(expr $a + $b); echo "a:$a, b:$b, c:$c"'
 
   set +x
 }
