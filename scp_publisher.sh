@@ -15,18 +15,12 @@ echo "first_node_ip: ${first_node_ip}"
 load_testing_dir="/home/ubuntu/publisher_load_test/"
 
 declare -A single_node_files_path=(
-  ["./tools/callisto/cdc/publisher/publisher_profiler/*"]="$load_testing_dir"
-  ["./src/go/bin/cdc_data_gen"]="$load_testing_dir"
-  ["./devvm_scripts/cdc_events_profile.json"]="$load_testing_dir"
-  ["./devvm_scripts/sd.json"]="$load_testing_dir"
+#  ["./tools/callisto/cdc/publisher/publisher_profiler/*"]="$load_testing_dir"
+#  ["./tools/callisto/cdc/publisher/publisher_profiler/startup.py"]="$load_testing_dir"
+#  ["./src/go/bin/cdc_data_gen"]="$load_testing_dir"
+#  ["./devvm_scripts/cdc_events_profile.json"]="$load_testing_dir"
+#  ["./devvm_scripts/sd.json"]="$load_testing_dir"
 )
-
-# Loop through the array of tuples and copy files from source to destination
-for source_path in "${!single_node_files_path[@]}"; do
-  destination_path="${single_node_files_path[$source_path]}"
-  ssh -i ${pem_file} ubuntu@${first_node_ip} "mkdir -p $destination_path"
-  scp -r -i ${pem_file} $source_path "ubuntu@$first_node_ip:$destination_path"
-done
 
 for ip in "${bodega_ips_arr[@]}"; do
 	echo $ip
@@ -35,14 +29,15 @@ for ip in "${bodega_ips_arr[@]}"; do
 	ssh -i $pem_file ubuntu@$ip 'mkdir -p /home/ubuntu/tushar_bin/'
 
 
-#	for binary in "kafka_cdc_converter"; do
-#	for binary in "cdc_restore_tool" "cdc_restore_tool_1" "cockroach_backup_tool" "cdc_data_publisher" "generate_cdc_data" "validate_cdc_data" "sqload"; do
 	for binary in "cdc_data_publisher"; do
+#	for binary in "cdc_restore_tool" "cdc_restore_tool_1" "cockroach_backup_tool" "cdc_data_publisher" "generate_cdc_data" "validate_cdc_data" "sqload"; do
+#	for binary in "cdc_data_gen" "cdc_data_publisher" "dga_test_server"; do
+#	for binary in "cdc_data_gen" "dga_test_server"; do
 #	for binary in "cdc_restore_tool" "cockroach_backup_tool" "kafka_cdc_converter"; do
 		scp -i $pem_file ./src/go/bin/$binary ubuntu@$ip:/opt/rubrik/src/go/bin/ # /home/ubuntu/tushar_bin/      #       ~/tushar_bin/cockroach       # /usr/local/bin/cockroach
 	done
 
-	ssh -i $pem_file ubuntu@$ip "mkdir -p /opt/rubrik/conf/cdc_data_publisher/ /opt/rubrik/tools/callisto/"
+#	ssh -i $pem_file ubuntu@$ip "mkdir -p /opt/rubrik/conf/cdc_data_publisher/ /opt/rubrik/tools/callisto/"
 
 	# Define the array of tuples (source and destination paths)
 	declare -A paths=(
@@ -62,11 +57,9 @@ for ip in "${bodega_ips_arr[@]}"; do
 #		["./devvm_scripts/check_logs.sh"]="~/check_logs.sh"
 #		["./devvm_scripts/log_patterns.txt"]="~/log_patterns.txt"
 #		["./src/scripts/callisto/CompareCrdbSnapshots.sh"]="/opt/rubrik/src/scripts/callisto/CompareCrdbSnapshots.sh"
-<<<<<<< HEAD
 #		["./conf/cdc_restore_tool/config.json"]="/opt/rubrik/conf/cdc_restore_tool/config.json"
-=======
+#		["./src/py/upgrade/tasks/notify_rsc.py"]=""
 		["./conf/cdc_data_publisher/config.json"]="/opt/rubrik/conf/cdc_data_publisher/config.json"
->>>>>>> a2d18739007365e8f9be818423889d7ba1a71a6c
 #		["./tools/callisto/cdc/cdc_restore_tool/restore_monitor.sh"]="/opt/rubrik/tools/callisto/restore_monitor.sh"
 #		["./devvm_scripts/bin/nethogs"]="/opt/rubrik/src/go/bin/"
 #		["./devvm_scripts/bin/kafkacat"]="/opt/rubrik/src/go/bin/"
@@ -91,4 +84,11 @@ for ip in "${bodega_ips_arr[@]}"; do
 		#fi
 	done
 
+done
+
+# Loop through the array of tuples and copy files from source to destination
+for source_path in "${!single_node_files_path[@]}"; do
+  destination_path="${single_node_files_path[$source_path]}"
+  ssh -i ${pem_file} ubuntu@${first_node_ip} "mkdir -p $destination_path"
+  scp -r -i ${pem_file} $source_path "ubuntu@$first_node_ip:$destination_path"
 done
