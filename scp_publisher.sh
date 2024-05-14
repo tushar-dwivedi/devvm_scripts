@@ -14,11 +14,11 @@ echo "first_node_ip: ${first_node_ip}"
 load_testing_dir="/home/ubuntu/publisher_load_test/"
 
 declare -A single_node_files_path=(
-#  ["./tools/callisto/cdc/publisher/publisher_profiler/*"]="$load_testing_dir"
-#  ["./tools/callisto/cdc/publisher/publisher_profiler/startup.py"]="$load_testing_dir"
-#  ["./src/go/bin/cdc_data_gen"]="$load_testing_dir"
-#  ["./devvm_scripts/cdc_events_profile.json"]="$load_testing_dir"
-#  ["./devvm_scripts/sd.json"]="$load_testing_dir"
+  ["./tools/callisto/cdc/publisher/publisher_profiler/*"]="$load_testing_dir"
+  ["./tools/callisto/cdc/publisher/publisher_profiler/startup.py"]="$load_testing_dir"
+  ["./src/go/bin/cdc_data_gen"]="$load_testing_dir"
+  ["./devvm_scripts/cdc_events_profile.json"]="$load_testing_dir"
+  ["./devvm_scripts/sd.json"]="$load_testing_dir"
 )
 
 for ip in "${bodega_ips_arr[@]}"; do
@@ -26,6 +26,8 @@ for ip in "${bodega_ips_arr[@]}"; do
 	ssh-keyscan $ip >>~/.ssh/known_hosts
 
 	ssh -i $pem_file ubuntu@$ip 'mkdir -p /home/ubuntu/tushar_bin/'
+
+  ssh -i $pem_file ubuntu@$ip 'sudo systemctl stop rk-cdc_data_publisher'
 
 #	for binary in "kafka_cdc_converter"; do
 #	for binary in "cdc_restore_tool" "cdc_restore_tool_1" "cockroach_backup_tool" "cdc_data_publisher" "generate_cdc_data" "validate_cdc_data" "sqload"; do
@@ -36,6 +38,8 @@ for ip in "${bodega_ips_arr[@]}"; do
 #	for binary in "cdc_restore_tool" "cockroach_backup_tool" "kafka_cdc_converter"; do
 		scp -i $pem_file ./src/go/bin/$binary ubuntu@$ip:/opt/rubrik/src/go/bin/ # /home/ubuntu/tushar_bin/      #       ~/tushar_bin/cockroach       # /usr/local/bin/cockroach
 	done
+
+	ssh -i $pem_file ubuntu@$ip 'sudo systemctl start rk-cdc_data_publisher'
 
 #	ssh -i $pem_file ubuntu@$ip "mkdir -p /opt/rubrik/conf/cdc_data_publisher/ /opt/rubrik/tools/callisto/"
 
